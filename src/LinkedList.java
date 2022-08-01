@@ -45,13 +45,13 @@ public class LinkedList {
          if(temp == null)
          {
              newnode = head;
+             return ;
          }
-         while(temp != null)
+         while(temp.next != null)
          {
              temp = temp.next;
          }
-         newnode.next = temp;
-         temp = newnode;
+         temp.next = newnode;
      }
 
 
