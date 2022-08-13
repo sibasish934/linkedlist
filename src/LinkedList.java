@@ -1,7 +1,7 @@
 public class LinkedList {
     private static Node head;
     private static class Node{
-        private final int data;
+        private int data;
         private Node next;
 
         public Node (int data)
@@ -125,7 +125,7 @@ public class LinkedList {
         return temp.data;
      }
 
-    public static int DeleteATgivenPos(int pos){
+    public static int deleteAtGivenPos(int pos){
         if(pos == 1)
         {
             head = head.next;
@@ -143,6 +143,32 @@ public class LinkedList {
         return temp.data;
     }
 
+    public static int middleReturn(){
+        Node slowPtr = head;
+        Node firstPtr = head;
+        while(firstPtr != null && firstPtr.next != null){
+            slowPtr = slowPtr.next;
+            firstPtr = firstPtr.next.next;
+        }
+        return slowPtr.data;
+    }
+
+    public static void sortLinkedList(){
+        Node temp = head;
+        while(temp.next != null)
+        {
+            if(temp.data < temp.next.data){
+                int c = temp.data;
+                temp.data = temp.next.data;
+                temp.next.data = c;
+            }
+
+            temp = temp.next;
+        }
+    }
+
+
+
     public static void main(String[] args) {
 //        LinkedList sl = new LinkedList();
         head = new Node(10);
@@ -156,12 +182,18 @@ public class LinkedList {
         insertEnd();
         insertAtgivenpos(3,8);
         traverse();
-        DeleteFirst();
+//        DeleteFirst();
+//        traverse();
+//        deleteEnd();
+//        traverse();
+//        deleteAtGivenPos(3);
+//        traverse();
+        System.out.println("\n The linkedList before sorting...");
+        sortLinkedList();
         traverse();
-        deleteEnd();
-        traverse();
-        DeleteATgivenPos(3);
-        traverse();
+        System.out.println("\n The linkedList after the sorting...");
+        int middleElement = middleReturn();
+        System.out.println("\n The middle is "+middleElement);
         boolean ser = search(8);
         System.out.println(ser);
         System.out.println("\n The length of the linked list is "+(lengthofLinkedList()));
