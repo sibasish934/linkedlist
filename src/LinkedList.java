@@ -167,8 +167,104 @@ public class LinkedList {
         }
     }
 
+    public static void deleteWithKey(int key)
+    {
+        Node current = head;
+        Node temp = null;
 
+        if (current.next != null && current.data == key)
+        {
+            head = current.next;
+            return;
+        }
 
+        while(current != null && current.data != key)
+        {
+            temp = current;
+            current = current.next;
+        }
+        if(current == null)
+        {
+            return;
+        }
+        temp.next = current.next;
+    }
+    public boolean hasCycle(Node head) {
+        Node slowPtr = head;
+        Node fastPtr = head;
+
+        while(fastPtr != null && fastPtr.next != null){
+            slowPtr = slowPtr.next;
+            fastPtr = fastPtr.next.next;
+            if(slowPtr == fastPtr)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public ListNode detectCycle(ListNode head) {
+        ListNode fastPtr = head;
+        ListNode slowPtr = head;
+
+        while(fastPtr != null && fastPtr.next != null){
+            fastPtr = fastPtr.next.next;
+            slowPtr = slowPtr.next;
+
+            if(fastPtr == slowPtr)
+            {
+                return getStartingNode(slowPtr,head);
+            }
+        }
+
+        return null;
+
+    }
+
+    public static ListNode getStartingNode( ListNode slowPtr, ListNode head) {
+        ListNode temp = head;
+
+        while(temp != slowPtr)
+        {
+            temp = temp.next;
+            slowPtr = slowPtr.next;
+        }
+
+        return temp;
+    }
+
+    public static int countNodesinLoop(Node head)
+    {
+        Node slowPtr = head;
+        Node fastPtr = head;
+
+        while(fastPtr!=null && fastPtr.next != null)
+        {
+            slowPtr = slowPtr.next;
+            fastPtr = fastPtr.next.next;
+            if(slowPtr == fastPtr)
+            {
+                return count(slowPtr);
+            }
+        }
+
+        return 0;
+    }
+
+    public static int count(Node slowPtr)
+    {
+        int count = 1;
+        Node temp = slowPtr;
+        while(temp.next != slowPtr)
+        {
+            temp = temp.next;
+            // slowPtr = slowPtr.next;
+            count++;
+        }
+
+        return count;
+    }
     public static void main(String[] args) {
 //        LinkedList sl = new LinkedList();
         head = new Node(10);
@@ -182,18 +278,20 @@ public class LinkedList {
         insertEnd();
         insertAtgivenpos(3,8);
         traverse();
+        deleteWithKey(5);
+        traverse();
 //        DeleteFirst();
 //        traverse();
 //        deleteEnd();
 //        traverse();
 //        deleteAtGivenPos(3);
 //        traverse();
-        System.out.println("\n The linkedList before sorting...");
-        sortLinkedList();
-        traverse();
-        System.out.println("\n The linkedList after the sorting...");
-        int middleElement = middleReturn();
-        System.out.println("\n The middle is "+middleElement);
+//        System.out.println("\n The linkedList before sorting...");
+//        sortLinkedList();
+//        traverse();
+//        System.out.println("\n The linkedList after the sorting...");
+//        int middleElement = middleReturn();
+//        System.out.println("\n The middle is "+middleElement);
         boolean ser = search(8);
         System.out.println(ser);
         System.out.println("\n The length of the linked list is "+(lengthofLinkedList()));
